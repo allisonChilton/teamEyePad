@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EyePad.UI"
-        mc:Ignorable="d"
-        Title="EyePad" Height="350" Width="525">
+        xmlns:menu="clr-namespace:EyePad.UI.Menu"
+        xmlns:talk="clr-namespace:EyePad.UI.Talk"
+        Title="EyePad" 
+        Height="350" 
+        Width="525">
+    <!-- Set the DataContext of the MainWindow View
+         by instantiating a ViewModel object via XAML 
+    -->
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <!-- Create a ResourceDictionary to setup a DataTemplate
+         to map each view to a viewmodel
+    -->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type menu:MenuViewModel}">
+            <menu:MenuView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type talk:TalkViewModel}">
+            <talk:TalkView />
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
-        <TextBlock>Hello WPF</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" 
+              x:Name="NavigationBarGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="Menu"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="menu"
+                    Grid.Column="0" />
+            <Button Content="Talk"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="talk"
+                    Grid.Column="2" />
+        </Grid>
+        <Grid Grid.Row="1"
+              x:Name="MainContentGrid">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>
