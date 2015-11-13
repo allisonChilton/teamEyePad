@@ -16,16 +16,26 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     
-    <!-- Create a ResourceDictionary to setup a DataTemplate
-         to map each view to a viewmodel
-    -->
     <Window.Resources>
+        <!-- Setup a DataTemplate to map each View to a ViewModel -->
         <DataTemplate DataType="{x:Type menu:MenuViewModel}">
             <menu:MenuView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type talk:TalkViewModel}">
             <talk:TalkView />
         </DataTemplate>
+        
+        <!-- Create Styles for EyeX Activatable Buttons -->
+        <Style x:Key="DefaultButtonStyle"
+               TargetType="Button">
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="Padding" Value="25" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+        </Style>
+        
     </Window.Resources>
     
     <Grid>
@@ -36,18 +46,20 @@
         <Grid Grid.Row="0" 
               x:Name="NavigationBarGrid">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Content="Menu"
+            <Button Grid.Column="0"
+                    Content="Menu"
                     Command="{Binding NavigateCommand}"
                     CommandParameter="menu"
-                    Grid.Column="0" />
-            <Button Content="Talk"
+                    Style="{StaticResource DefaultButtonStyle}" />
+            <Button Grid.Column="2" 
+                    Content="Talk"
                     Command="{Binding NavigateCommand}"
                     CommandParameter="talk"
-                    Grid.Column="2" />
+                    Style="{StaticResource DefaultButtonStyle}" />
         </Grid>
         <Grid Grid.Row="1"
               x:Name="MainContentGrid">
