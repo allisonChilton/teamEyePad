@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:EyePad.UI"
         xmlns:menu="clr-namespace:EyePad.UI.Menu"
         xmlns:talk="clr-namespace:EyePad.UI.Talk"
+        xmlns:eyeX="clr-namespace:EyeXFramework.Wpf;assembly=EyeXFramework"
         Title="EyePad" 
         Height="350" 
         Width="525">
@@ -24,18 +25,19 @@
         <DataTemplate DataType="{x:Type talk:TalkViewModel}">
             <talk:TalkView />
         </DataTemplate>
-        
-        <!-- Create Styles for EyeX Activatable Buttons -->
-        <Style x:Key="DefaultButtonStyle"
-               TargetType="Button">
+
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="250" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="MenuButton_OnHasGazeChanged" />
+
             <Setter Property="Width" Value="200" />
             <Setter Property="Height" Value="100" />
             <Setter Property="Margin" Value="25" />
-            <Setter Property="Padding" Value="25" />
-            <Setter Property="FontSize" Value="30" />
-            <Setter Property="FontWeight" Value="ExtraBold" />
+            
         </Style>
-        
+
+
     </Window.Resources>
     
     <Grid>
@@ -52,14 +54,12 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
                     Content="Menu"
-                    Command="{Binding NavigateCommand}"
-                    CommandParameter="menu"
-                    Style="{StaticResource DefaultButtonStyle}" />
+                    Style="{StaticResource MenuButtonStyle}" />
+
             <Button Grid.Column="2" 
                     Content="Talk"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="talk"
-                    Style="{StaticResource DefaultButtonStyle}" />
+                    CommandParameter="talk" />
         </Grid>
         <Grid Grid.Row="1"
               x:Name="MainContentGrid">

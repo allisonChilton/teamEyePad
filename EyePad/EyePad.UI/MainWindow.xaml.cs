@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EyeXFramework.Wpf;
 
 namespace EyePad.UI
 {
@@ -20,9 +21,24 @@ namespace EyePad.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel ViewModel
+        {
+            get { return DataContext as MainWindowViewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MenuButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            Button menuButton = sender as Button;
+            if (null != menuButton)
+            {
+                bool buttonHasGaze = menuButton.GetHasGaze();
+                int x = 0;
+            }
         }
     }
 }
