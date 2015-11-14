@@ -21,7 +21,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
-            <TextBox Grid.Column="0" 
+            <TextBox Grid.Column="0"
+                     x:Name="OutputTextBox"
                      FontSize="20"
                      FontWeight="ExtraBold"
                      TextWrapping="Wrap"
@@ -37,7 +38,8 @@
                     VerticalContentAlignment="Center"
                     Width="200"
                     Height="200"
-                    Margin="10"/>
+                    Margin="10"
+                    Click="SpeakButton_OnClick"/>
         </Grid>
         <ListBox Grid.Row="1" 
                  x:Name="KeyboardListBox"
