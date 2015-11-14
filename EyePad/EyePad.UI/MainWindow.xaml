@@ -8,7 +8,7 @@
         xmlns:talk="clr-namespace:EyePad.UI.Talk"
         xmlns:eyeX="clr-namespace:EyeXFramework.Wpf;assembly=EyeXFramework"
         Title="EyePad" 
-        Height="700" 
+        Height="1000" 
         Width="1050">
     <!-- Set the DataContext of the MainWindow View
          by instantiating a ViewModel object via XAML 
