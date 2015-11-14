@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,16 +22,27 @@ namespace EyePad.UI.Talk
     /// </summary>
     public partial class TalkView : UserControl
     {
+        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
+
+
         public TalkView()
         {
             InitializeComponent();
             Loaded += TalkView_Loaded;
+            Unloaded += TalkView_Unloaded;
         }
 
         private void TalkView_Loaded(object sender, RoutedEventArgs e)
         {
             CycleThroughAllItemsAsync();
         }
+
+        private void TalkView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Cleanup resources
+            _speechSynthesizer.Dispose();
+        }
+
 
         private void CycleThroughAllItemsAsync()
         {
@@ -49,6 +61,17 @@ namespace EyePad.UI.Talk
                 }
                 await Task.Delay(2000);
             }
+        }
+
+        private void SpeakButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _speechSynthesizer.SetOutputToDefaultAudioDevice();
+            _speechSynthesizer.Volume = 100;
+            _speechSynthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
+
+            _speechSynthesizer.SpeakAsyncCancelAll();
+            _speechSynthesizer.SpeakAsync(OutputTextBox.Text);
+            
         }
     }
 }
