@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EyeXFramework.Wpf;
 
 namespace EyePad.UI.Talk
 {
@@ -24,10 +25,19 @@ namespace EyePad.UI.Talk
     {
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 
+        private TalkViewModel ViewModel
+        {
+            get { return DataContext as TalkViewModel; }
+        }
 
         public TalkView()
         {
             InitializeComponent();
+
+            _speechSynthesizer.SetOutputToDefaultAudioDevice();
+            _speechSynthesizer.Volume = 100;
+            _speechSynthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Adult);
+
             Loaded += TalkView_Loaded;
             Unloaded += TalkView_Unloaded;
         }
@@ -59,7 +69,7 @@ namespace EyePad.UI.Talk
                 {
                     i = -1;
                 }
-                await Task.Delay(2000);
+                await Task.Delay(1250);
             }
         }
 
@@ -72,6 +82,63 @@ namespace EyePad.UI.Talk
             _speechSynthesizer.SpeakAsyncCancelAll();
             _speechSynthesizer.SpeakAsync(OutputTextBox.Text);
             
+        }
+
+        private void SpeakButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            // TODO - Replace with ICommand implementation
+            Button speakButton = sender as Button;
+            if (null != speakButton && null != ViewModel)
+            {
+                bool buttonHasGaze = speakButton.GetHasGaze();
+                if (buttonHasGaze)
+                {
+                    _speechSynthesizer.SpeakAsyncCancelAll();
+                    _speechSynthesizer.SpeakAsync(OutputTextBox.Text);
+                }
+            }
+        }
+
+        private void SelectButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            // TODO - Replace with ICommand implementation
+            Button selectButton = sender as Button;
+            if (null != selectButton && null != ViewModel)
+            {
+                bool buttonHasGaze = selectButton.GetHasGaze();
+                if (buttonHasGaze)
+                {
+                    OutputTextBox.Text += KeyboardListBox.SelectedItem.ToString();
+                }
+            }
+        }
+
+        private void SpaceButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            // TODO - Replace with ICommand implementation
+            Button spaceButton = sender as Button;
+            if (null != spaceButton && null != ViewModel)
+            {
+                bool buttonHasGaze = spaceButton.GetHasGaze();
+                if (buttonHasGaze)
+                {
+                    OutputTextBox.Text += " ";
+                }
+            }
+        }
+
+        private void BackspaceButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            // TODO - Replace with ICommand implementation
+            Button backspaceButton = sender as Button;
+            if (null != backspaceButton && null != ViewModel)
+            {
+                bool buttonHasGaze = backspaceButton.GetHasGaze();
+                if (buttonHasGaze && OutputTextBox.Text.Length > 0)
+                {
+                    OutputTextBox.Text = OutputTextBox.Text.Substring(0, OutputTextBox.Text.Length - 1);
+                }
+            }
         }
     }
 }

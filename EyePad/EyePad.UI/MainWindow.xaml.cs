@@ -29,9 +29,14 @@ namespace EyePad.UI
         public MainWindow()
         {
             InitializeComponent();
-
+            Loaded += OnLoaded;
             // TODO: Remove this when we add an actual menu and/or expand the interface
             ViewModel.Navigate("talk");
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            WindowState = WindowState.Maximized;
         }
 
         private void MenuButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
