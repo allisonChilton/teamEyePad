@@ -8,8 +8,8 @@
         xmlns:talk="clr-namespace:EyePad.UI.Talk"
         xmlns:eyeX="clr-namespace:EyeXFramework.Wpf;assembly=EyeXFramework"
         Title="EyePad" 
-        Height="350" 
-        Width="525">
+        Height="700" 
+        Width="1050">
     <!-- Set the DataContext of the MainWindow View
          by instantiating a ViewModel object via XAML 
     -->
@@ -28,7 +28,7 @@
 
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
-            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="250" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="450" />
             <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="MenuButton_OnHasGazeChanged" />
 
             <Setter Property="Width" Value="200" />
@@ -37,10 +37,21 @@
             
         </Style>
 
+        <Style x:Key="TalkButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="450" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="TalkButton_OnHasGazeChanged" />
+            
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="25" />
 
+        </Style>
     </Window.Resources>
     
     <Grid>
+        <!-- For now we'll skip having a menu at the top
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -58,12 +69,10 @@
 
             <Button Grid.Column="2" 
                     Content="Talk"
-                    Command="{Binding NavigateCommand}"
-                    CommandParameter="talk" />
-        </Grid>
-        <Grid Grid.Row="1"
-              x:Name="MainContentGrid">
-            <ContentControl Content="{Binding CurrentViewModel}" />
-        </Grid>
+                    Style="{StaticResource TalkButtonStyle}" />
+        </Grid>-->
+        
+        <ContentControl Content="{Binding CurrentViewModel}" />
+        
     </Grid>
 </Window>

@@ -6,7 +6,59 @@
              xmlns:local="clr-namespace:EyePad.UI.Talk"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Text="Talk View" />
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              x:Name="OutputGrid"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0" 
+                     FontSize="20"
+                     FontWeight="ExtraBold"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Margin="10"/>
+            
+            <Button Grid.Column="1"
+                    x:Name="SpeakButton"
+                    Content="Speak"
+                    FontSize="50"
+                    FontWeight="ExtraBold"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Width="200"
+                    Height="200"
+                    Margin="10"/>
+        </Grid>
+        <ListBox Grid.Row="1" 
+                 x:Name="KeyboardListBox"
+                 ItemsSource="{Binding KeyboardKeys}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"
+                               TextAlignment="Center"
+                               Width="100" 
+                               Height="100"
+                               Margin="10" 
+                               FontSize="20"
+                               FontWeight="ExtraBold" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

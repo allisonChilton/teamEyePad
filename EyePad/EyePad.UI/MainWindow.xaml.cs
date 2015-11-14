@@ -29,15 +29,30 @@ namespace EyePad.UI
         public MainWindow()
         {
             InitializeComponent();
+
+            // TODO: Remove this when we add an actual menu and/or expand the interface
+            ViewModel.Navigate("talk");
         }
 
         private void MenuButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
         {
+            // TODO - Replace with ICommand implementation
             Button menuButton = sender as Button;
-            if (null != menuButton)
+            if (null != menuButton && null != ViewModel)
             {
                 bool buttonHasGaze = menuButton.GetHasGaze();
-                int x = 0;
+                ViewModel.Navigate("menu");
+            }
+        }
+
+        private void TalkButton_OnHasGazeChanged(object sender, RoutedEventArgs e)
+        {
+            // TODO - Replace with ICommand implementation
+            Button talkButton = sender as Button;
+            if (null != talkButton && null != ViewModel)
+            {
+                bool buttonHasGaze = talkButton.GetHasGaze();
+                ViewModel.Navigate("talk");
             }
         }
     }

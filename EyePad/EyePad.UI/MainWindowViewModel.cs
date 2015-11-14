@@ -30,6 +30,12 @@ namespace EyePad.UI
             NavigateCommand = new RelayCommand<string>(OnNavigate);
         }
 
+        // TODO: Replace with ICommand Implementation
+        public void Navigate(string destination)
+        {
+            OnNavigate(destination);
+        }
+
         private void OnNavigate(string destination)
         {
             switch (destination)
