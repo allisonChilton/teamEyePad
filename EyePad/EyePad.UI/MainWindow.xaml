@@ -1,0 +1,78 @@
+﻿<Window x:Class="EyePad.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EyePad.UI"
+        xmlns:menu="clr-namespace:EyePad.UI.Menu"
+        xmlns:talk="clr-namespace:EyePad.UI.Talk"
+        xmlns:eyeX="clr-namespace:EyeXFramework.Wpf;assembly=EyeXFramework"
+        Title="EyePad" 
+        Height="1000" 
+        Width="1050">
+    <!-- Set the DataContext of the MainWindow View
+         by instantiating a ViewModel object via XAML 
+    -->
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <!-- Setup a DataTemplate to map each View to a ViewModel -->
+        <DataTemplate DataType="{x:Type menu:MenuViewModel}">
+            <menu:MenuView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type talk:TalkViewModel}">
+            <talk:TalkView />
+        </DataTemplate>
+
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="450" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="MenuButton_OnHasGazeChanged" />
+
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="25" />
+            
+        </Style>
+
+        <Style x:Key="TalkButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="450" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="TalkButton_OnHasGazeChanged" />
+            
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="25" />
+
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <!-- For now we'll skip having a menu at the top
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" 
+              x:Name="NavigationBarGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Menu"
+                    Style="{StaticResource MenuButtonStyle}" />
+
+            <Button Grid.Column="2" 
+                    Content="Talk"
+                    Style="{StaticResource TalkButtonStyle}" />
+        </Grid>-->
+        
+        <ContentControl Content="{Binding CurrentViewModel}" />
+        
+    </Grid>
+</Window>

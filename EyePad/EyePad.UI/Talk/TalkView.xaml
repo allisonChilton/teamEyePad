@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="EyePad.UI.Talk.TalkView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EyePad.UI.Talk"
+             xmlns:eyeX="clr-namespace:EyeXFramework.Wpf;assembly=EyeXFramework"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="SelectButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="250" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="SelectButton_OnHasGazeChanged" />
+
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="SpaceButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="250" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="SpaceButton_OnHasGazeChanged" />
+
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="BackspaceButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="250" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="BackspaceButton_OnHasGazeChanged" />
+
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="SpeakButtonStyle" TargetType="Button">
+            <Setter Property="eyeX:Behavior.GazeAware" Value="True" />
+            <Setter Property="eyeX:Behavior.GazeAwareDelay" Value="1500" />
+            <EventSetter Event="eyeX:Behavior.HasGazeChanged" Handler="SpeakButton_OnHasGazeChanged" />
+
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="200" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              x:Name="OutputGrid"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0"
+                     x:Name="OutputTextBox"
+                     FontSize="20"
+                     FontWeight="ExtraBold"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Margin="10"/>
+            
+            <Button Grid.Column="1"
+                    x:Name="SpeakButton"
+                    Content="Speak"
+                    Style="{StaticResource SpeakButtonStyle}"/>
+        </Grid>
+        <ListBox Grid.Row="1" 
+                 x:Name="KeyboardListBox"
+                 ItemsSource="{Binding KeyboardKeys}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"
+                               TextAlignment="Center"
+                               Width="100" 
+                               Height="100"
+                               Margin="10" 
+                               FontSize="20"
+                               FontWeight="ExtraBold" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2"
+              HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0"
+                    x:Name="SelectButton"
+                    Content="Select"
+                    Style="{StaticResource SelectButtonStyle}"></Button>
+
+            <Button Grid.Column="1"
+                    x:Name="SpaceButton"
+                    Content="Space"
+                    Style="{StaticResource SpaceButtonStyle}"></Button>
+
+            <Button Grid.Column="2"
+                    x:Name="BackspaceButton"
+                    Content="Backspace"
+                    Style="{StaticResource BackspaceButtonStyle}"></Button>
+
+        </Grid>
+    </Grid>
+</UserControl>
