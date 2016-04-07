@@ -408,13 +408,7 @@ namespace ALSProject
             if (OnPressed != null)
                 OnPressed(this, EventArgs.Empty);
         }
-        #endregion
-        
-        #region Abstract Methods
-        protected abstract void SetIsBrowser(bool isBrowser);
 
-        public abstract object Clone();
-        
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -424,8 +418,15 @@ namespace ALSProject
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Name = "Keyboard";
             this.ResumeLayout(false);
-
         }
+        #endregion
+
+        #region Abstract Methods
+        protected abstract void SetIsBrowser(bool isBrowser);
+
+        public abstract object Clone();
+
+
         #endregion
     }
 }

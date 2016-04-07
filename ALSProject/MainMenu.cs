@@ -46,9 +46,9 @@ namespace ALSProject
         protected Browser browser;
         protected Email email;
         protected Timer closeTimer;
+        protected Notebook notebook;
         protected Factory factory;
         private CVInterface tobiiInt;
-        private Notebook notebook;
         private Thread eyeTrackingThread;
         private static LockScreen lockScreen;
         private static SpeechSynthesizer voice;
@@ -83,6 +83,10 @@ namespace ALSProject
             email = factory.Email;
             //Settings must be created last to update all of the other application's properties
             settingsScreen = factory.SettingsScreen;
+            
+
+
+
 
             texttospeech.Visible = false;
             notebook.Visible = false;
@@ -200,6 +204,7 @@ namespace ALSProject
         {
             Application.Exit();
         }
+
 
         private void alsButton4_Click(object sender, EventArgs e)
         {
