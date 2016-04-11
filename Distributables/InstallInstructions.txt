@@ -1,0 +1,11 @@
+1. Download the latest zip from https://github.com/allisonChilton/teamEyePad/tree/master/Distributables
+
+2. Unzip the file to your preferred location.
+
+3. Run the presage installer. Click yes to the User Account Control dialog
+
+4. Click Next. Click I agree. Click Next. Select desired install location ("C:\Program Files (x86)\presage\" is recommended). Click next. Click install.
+
+5. Open the VisuALS folder.
+
+6. Run ALSProject.exe

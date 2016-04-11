@@ -16,7 +16,7 @@ namespace ALSProject
         protected ALSButton btnLogout;
         protected ALSButton btnCancel;
         protected ALSButton btnLogin;
-        protected ALSTextbox txtButton;
+        protected ALSTextbox txtLoginBox;
         protected ALSTextbox txtPassword;
         protected Keyboard keyboard;
 
@@ -37,12 +37,16 @@ namespace ALSProject
             btnLogout = new ALSButton();
             btnCancel = new ALSButton();
             btnLogin = new ALSButton();
-            txtButton = new ALSTextbox();
+            txtLoginBox = new ALSTextbox();
             txtPassword = new ALSTextbox();
             if (isQwerty)
                 keyboard = new LargeButtonKeyboard();
             else
                 keyboard = new QwertyKeyboard();
+
+            txtLoginBox.Multiline = true;
+            txtPassword.Multiline = true;
+    
 
             btnLogout.Text = "Log\nOut";
             btnCancel.Text = "Cancel";
@@ -52,7 +56,7 @@ namespace ALSProject
             Controls.Add(btnLogout);
             Controls.Add(btnCancel);
             Controls.Add(btnLogin);
-            Controls.Add(txtButton);
+            Controls.Add(txtLoginBox);
             Controls.Add(txtPassword);
             Controls.Add(keyboard);
 
@@ -60,11 +64,11 @@ namespace ALSProject
             btnCancel.Click += BtnCancel_Click;
             btnLogin.Click += BtnLogin_Click;
 
-            txtButton.Font = new Font(txtButton.Font.FontFamily, 20);
+            txtLoginBox.Font = new Font(txtLoginBox.Font.FontFamily, 20);
             txtPassword.Font = new Font(txtPassword.Font.FontFamily, 20);
 
             keyboard.HideTextBox();
-            txtButton.Focus();
+            txtLoginBox.Focus();
         }
 
         #endregion
@@ -74,6 +78,7 @@ namespace ALSProject
         {
             Controls.Remove(keyboard);
             keyboard = k;
+            keyboard.OnPressed += Press_Key;
             keyboard.HideTextBox();
             Controls.Add(keyboard);
             frmEmailLogin_Resize(this, EventArgs.Empty);
@@ -84,7 +89,7 @@ namespace ALSProject
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             EmailClient client = EmailFactory.GetEmailClient();
-            client.setLogin("imap.gmail.com", "smtp.gmail.com", txtButton.Text, txtPassword.Text);
+            client.setLogin("imap.gmail.com", "smtp.gmail.com", txtLoginBox.Text, txtPassword.Text);
             Hide();
             if (Cancel_Click != null)
                 Cancel_Click(this, e);
@@ -95,6 +100,11 @@ namespace ALSProject
             Hide();
             if (Cancel_Click != null)
                 Cancel_Click(this, e);
+        }
+
+        private void Press_Key(object sender, EventArgs e)
+        {
+            SendKeys.Send(keyboard.GetMostRecentEntry());
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -115,16 +125,16 @@ namespace ALSProject
             btnCancel.Size = btnAlarm.Size;
             btnLogin.Size = btnAlarm.Size;
 
-            txtButton.Size = new Size(buttonWidth * 2 + MainMenu.GAP, (buttonWidth - MainMenu.GAP) / 2);
-            txtPassword.Size = txtButton.Size;
+            txtLoginBox.Size = new Size(buttonWidth * 2 + MainMenu.GAP, (buttonWidth - MainMenu.GAP) / 2);
+            txtPassword.Size = txtLoginBox.Size;
 
             keyboard.Size = new Size(Width - MainMenu.GAP * 2, Height - buttonWidth - MainMenu.GAP * 3);
 
             btnAlarm.Location = new Point(MainMenu.GAP, MainMenu.GAP);
             btnLogout.Location = new Point(btnAlarm.Right + MainMenu.GAP, btnAlarm.Top);
-            txtButton.Location = new Point(btnLogout.Right + MainMenu.GAP, btnAlarm.Top);
-            txtPassword.Location = new Point(txtButton.Left, txtButton.Bottom + MainMenu.GAP);
-            btnCancel.Location = new Point(txtButton.Right + MainMenu.GAP, btnAlarm.Top);
+            txtLoginBox.Location = new Point(btnLogout.Right + MainMenu.GAP, btnAlarm.Top);
+            txtPassword.Location = new Point(txtLoginBox.Left, txtLoginBox.Bottom + MainMenu.GAP);
+            btnCancel.Location = new Point(txtLoginBox.Right + MainMenu.GAP, btnAlarm.Top);
             btnLogin.Location = new Point(btnCancel.Right + MainMenu.GAP, btnAlarm.Top);
             keyboard.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
         }

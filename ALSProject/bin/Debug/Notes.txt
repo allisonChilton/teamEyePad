@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 Hello How are you Have Hello How are you you been alright?
+=======
+Helo
+himself 
+Had 
+Hi
+>>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -9,12 +16,13 @@ askdlfjoa siejfoajwefojwoe fjwef jwoeij we f iojwef iowefio wojie foijweofioij w
 Yyyyyyyuupppppppppppppppppppppppppppppp
 =======
 askdlfjoa siejfoajwefojwoe fjwef jwoeij we f iojwef iowefio wojie foijweofioij wefoij we oijfoijw e foijwe foiwejoif owijef ojiwef oijwe fojiweoij fwoji efoij we fsad fijoasogi
-Helo
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 H
-Pres
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
+<<<<<<< HEAD
 Had 
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 =======
+=======
+>>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git
 >>>>>>> branch 'master' of https://github.com/allisonChilton/teamEyePad.git

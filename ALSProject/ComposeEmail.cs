@@ -146,8 +146,8 @@ namespace ALSProject
 
         private void ComposeEmail_Resize(object sender, EventArgs e)
         {
-            int buttonWdidth = (Width - MainMenu.GAP * 7) / 6;
-            btnAlarm.Size = new Size(buttonWdidth, buttonWdidth);
+            int buttonWidth = (Width - MainMenu.GAP * 7) / 6;
+            btnAlarm.Size = new Size(buttonWidth, buttonWidth);
             btnCancel.Size = btnAlarm.Size;
             btnSend.Size = btnAlarm.Size;
 
@@ -158,7 +158,7 @@ namespace ALSProject
             txtTo.Location = new Point(btnAlarm.Right + MainMenu.GAP, btnAlarm.Top);
             txtSubject.Location = new Point(btnAlarm.Right + MainMenu.GAP, txtTo.Bottom + MainMenu.GAP);
 
-            txtTo.Size = new Size(btnCancel.Left - txtTo.Left - MainMenu.GAP, labelHeight);
+            txtTo.Size = new Size(btnCancel.Left - txtTo.Left - MainMenu.GAP, 3 * buttonWidth/8);
             txtSubject.Size = txtTo.Size;
 
             txtBody.Location = new Point(MainMenu.GAP, btnAlarm.Bottom + MainMenu.GAP);
@@ -189,6 +189,9 @@ namespace ALSProject
                 keyboard = new LargeButtonKeyboard();
             else
                 keyboard = new QwertyKeyboard();
+
+            txtTo.Multiline = true;
+            txtSubject.Multiline = true;
 
             btnCancel.Text = "Cancel";
             btnSend.Text = "Send";

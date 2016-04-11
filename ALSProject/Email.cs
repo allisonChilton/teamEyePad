@@ -130,6 +130,7 @@ namespace ALSProject
         private void BtnSwitchAccount_Click(object sender, EventArgs e)
         {
             frmEmailLogin.Show();
+            //throw new Exception("You so exception");
         }
 
         private void BtnCompose_Click(object sender, EventArgs e)

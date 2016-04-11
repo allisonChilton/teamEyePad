@@ -135,7 +135,7 @@ namespace ALSProject
             winBrowse.Location = new Point(alsAlarm1.Right + MainMenu.GAP, MainMenu.GAP);
             setBrowserSize();
             keyboard.Location = new Point(winBrowse.Left, winBrowse.Bottom + MainMenu.GAP);
-            keyboard.Size = new Size(winBrowse.Width, Height - keyboard.Top - MainMenu.GAP);   
+            keyboard.Size = new Size(winBrowse.Width, Height - keyboard.Top - MainMenu.GAP);
         }
 
         private void btnKeyboard_Click(object sender, EventArgs e)

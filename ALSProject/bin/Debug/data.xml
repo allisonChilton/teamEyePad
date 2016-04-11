@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<item>
-  <name>wrench</name>
-  <keyboard>Large Button</keyboard>
-  <decay>No Decay</decay>
-  <dwellTime>5</dwellTime>
-  <keyboardDwellTime>5</keyboardDwellTime>
-  <voiceSpeed>5</voiceSpeed>
-</item>

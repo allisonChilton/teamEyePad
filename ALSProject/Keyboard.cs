@@ -18,7 +18,7 @@ namespace ALSProject
         protected TextBox _textBox;
         protected bool _confirmClear = false;
         protected ALSButton[] predictionKeys;
-        protected PresagePredictor presage = new PresagePredictor();
+        protected PresagePredictor presage;
         protected ALSKey[,] keyboard;
         protected List<string> predictionWords;
         protected string mostRecentEntry;
@@ -34,17 +34,21 @@ namespace ALSProject
         public Keyboard()
         {
             this.initialSetup();
+            
         }
 
         public Keyboard(bool browserMode)
         {
             this.browserMode = browserMode;
             this.initialSetup();
+            
 
         }
 
         protected void initialSetup()
         {
+            try { presage = new PresagePredictor(); }catch(Exception e) { ALS_App.LogCrash(e); }
+
             _textBox = new TextBox();
             _textBox.Font = new Font(_textBox.Font.FontFamily, 24);
             _textBox.Multiline = true;
@@ -126,7 +130,15 @@ namespace ALSProject
         public void FillPredictKeys(object sender, EventArgs e)
         {
             ALSButton btn = ((ALSButton)sender);
-            String[] predictions = presage.getPredictions(btn.Text);
+            String[] predictions;
+
+            try
+            {
+                predictions = presage.getPredictions(btn.Text);
+            }catch
+            {
+                predictions = new String[0];
+            }
 
             for (int i = 0; i < predictionKeys.GetLength(0); i++)
             {
@@ -144,7 +156,7 @@ namespace ALSProject
         public void ResetPrediction()
         {
             predictionWords.Clear();
-            presage.reset();
+            try { presage.reset(); } catch { }
 
             foreach (ALSButton btn in predictionKeys)
             {
@@ -336,48 +348,55 @@ namespace ALSProject
 
         protected void Populate_Predictkeys()
         {
-            string lastWord = "";
-            string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
-            var match = Regex.Match(text, @"[.!?][^.!?]*$");
-
-            if (match.Success)
-                lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
-            else
-                lastWord = text;
-
-            //remove inaplicable words
-            match = Regex.Match(text, @"\S*$");
-            string lastWord2 = "";
-            if (match.Success)
-                lastWord2 = text.Substring(match.Index);
-            else
-                predictionWords.Clear();    //new word
-            for (int i = predictionWords.Count - 1; i >= 0; i--)
+            try
             {
-                string temp = predictionWords.ElementAt(i);
-                if (!temp.ToLower().Contains(lastWord2.ToLower()))
-                    predictionWords.Remove(temp);
-            }
+                string lastWord = "";
+                string text = _textBox.Text.Substring(0, _textBox.SelectionStart);
+                var match = Regex.Match(text, @"[.!?][^.!?]*$");
 
-            //Add new applicable words 
-            string[] predictions = presage.getPredictions(lastWord);
-            foreach (string word in predictions)
-                predictionWords.Add(word);
+                if (match.Success)
+                    lastWord = match.Length > 1 ? text.Substring(match.Index + 1) : "";
+                else
+                    lastWord = text;
 
-            //Write words to buttons
-            for (int i = 0; i < predictionKeys.Length; i++)
-            {
-                try
+                //remove inaplicable words
+                match = Regex.Match(text, @"\S*$");
+                string lastWord2 = "";
+                if (match.Success)
+                    lastWord2 = text.Substring(match.Index);
+                else
+                    predictionWords.Clear();    //new word
+                for (int i = predictionWords.Count - 1; i >= 0; i--)
                 {
-                    string word = predictionWords.ElementAt(i);
-                    predictionKeys[i].Text = word;
-                    predictionKeys[i].setFontSize();
+                    string temp = predictionWords.ElementAt(i);
+                    if (!temp.ToLower().Contains(lastWord2.ToLower()))
+                        predictionWords.Remove(temp);
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-                    predictionKeys[i].Text = "";
-                }
+
+                //Add new applicable words 
+
+                string[] predictions = presage.getPredictions(lastWord); 
+                    foreach (string word in predictions)
+                        predictionWords.Add(word);
+
+                    //Write words to buttons
+                    for (int i = 0; i < predictionKeys.Length; i++)
+                    {
+                        try
+                        {
+                            string word = predictionWords.ElementAt(i);
+                            predictionKeys[i].Text = word;
+                            predictionKeys[i].setFontSize();
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            predictionKeys[i].Text = "";
+                        }
+                    }
+
             }
+            catch { }
+
         }
 
         private ALSKey[,] GetKeyboard()

@@ -102,6 +102,8 @@ namespace ALSProject
             else
                 heightCounter = 0;
 
+            ClearRect();
+
 
         }
 

@@ -5,6 +5,6 @@
   <decay>No Decay</decay>
   <autoalarm>AAEnabled</autoalarm>
   <dwellTime>5</dwellTime>
-  <keyboardDwellTime>5</keyboardDwellTime>
+  <keyboardDwellTime>8</keyboardDwellTime>
   <voiceSpeed>5</voiceSpeed>
 </item>

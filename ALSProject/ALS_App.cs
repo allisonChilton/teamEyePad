@@ -39,11 +39,41 @@ namespace ALSProject
 
         static void UnsafeFail()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            mainMenu = new MainMenu();
-            Application.Run(mainMenu);
+            try {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                mainMenu = new MainMenu();
+                Application.Run(mainMenu);
+            }
+            catch(Exception e)
+            {
+                LogCrash(e);
+                CVInterface.PleaseStop();
+                Application.Exit();
+                
+            }
         }
+
+        public static void LogCrash(Exception e)
+        {
+
+            if (!File.Exists("CrashLog.txt"))
+            {
+                
+                StreamWriter filestream = new StreamWriter(File.Create("CrashLog.txt"));
+                filestream.Close();
+            }
+
+            StreamWriter file = new StreamWriter(File.Open("CrashLog.txt", FileMode.Append));
+
+            file.WriteLine(DateTime.Now.ToLocalTime());
+            file.WriteLine(e.ToString());
+            file.WriteLine("\n==============================\n");
+
+            file.Close();
+        }
+
+
 
         private static bool RestartProgram()
         {
