@@ -290,7 +290,11 @@ namespace ALSProject
         private void lbListFolders()
         {
             EmailClient Client = EmailFactory.GetEmailClient();
-            String[] folders = Client.ListFolders();
+            String[] folders;
+
+            try {folders = Client.ListFolders(); }
+            catch(Exception e) {folders = new String[0]; }
+
             lbEmails.Items.Clear();
             foreach (string s in folders)
             {

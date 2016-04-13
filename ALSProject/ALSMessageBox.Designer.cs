@@ -51,12 +51,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(533, 262);
             this.Controls.Add(this.btnDismiss);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ALSMessageBox";
             this.Text = "ALSMessageBox";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

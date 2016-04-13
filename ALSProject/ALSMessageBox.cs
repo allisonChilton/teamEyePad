@@ -22,6 +22,7 @@ namespace ALSProject
             lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblMessage.Location = new System.Drawing.Point(20, 12);
             lblMessage.ForeColor = System.Drawing.Color.White;
+            
             this.Controls.Add(lblMessage);
 
         }

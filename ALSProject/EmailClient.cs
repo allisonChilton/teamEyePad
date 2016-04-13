@@ -55,12 +55,51 @@ namespace ALSProject
                 ALSMessageBox mb = new ALSMessageBox("Invalid email format");
                 mb.Show();
             }
+            catch (Exception e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                mb.Show();
+            }
         }
 
         public void sendMessage(string sourceAddress, string destinationAddress, string subject, string body)
         {
-            MailMessage message = new MailMessage(sourceAddress, destinationAddress, subject, body);
-            sendClient.Send(message);
+            try
+            {
+                MailMessage message = new MailMessage(sourceAddress, destinationAddress, subject, body);
+                sendClient.Send(message);
+
+            }
+            catch (FormatException e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Invalid email format");
+                mb.Show();
+            }
+            catch (Exception e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                mb.Show();
+            }
+
+        }
+
+        public void sendMessage(MailMessage message)
+        {
+            try
+            {
+                sendClient.Send(message);
+
+            }
+            catch (FormatException e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Invalid email format");
+                mb.Show();
+            }
+            catch (Exception e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                mb.Show();
+            }
         }
 
         public void sendReply(EmailMessage emailBeingRespondedTo, string body)
@@ -71,11 +110,9 @@ namespace ALSProject
                 subjectWithRe = "RE: " + emailBeingRespondedTo.subject;
             else
                 subjectWithRe = emailBeingRespondedTo.subject;
-
-
-
-            MailMessage message = new MailMessage(username, emailBeingRespondedTo.sourceAddress, subjectWithRe, bodyWithHistory);
-            sendClient.Send(message);
+     
+            EmailMessage message1 = new EmailMessage(subjectWithRe, bodyWithHistory, emailBeingRespondedTo.sourceAddress, emailBeingRespondedTo.destinationAddress, DateTime.Now);
+            this.sendMessage(message1);
         }
 
         public void sendForward(EmailMessage forwardedEmail, string destinationAddress, string newBody)
@@ -87,7 +124,7 @@ namespace ALSProject
             string subject = "Fwd: " + forwardedEmail.subject;
 
             MailMessage message = new MailMessage(username, destinationAddress, subject, combinedBody);
-            sendClient.Send(message);
+            this.sendMessage(message);
         }
 
         const int DOWNLOAD_COUNT = 20;
@@ -99,7 +136,9 @@ namespace ALSProject
 
             if (imapHost.Equals(null) || imapHost.Equals(null) || password.Equals(null))
             {
-                throw new Exception("Not logged in");
+                ALSMessageBox mb = new ALSMessageBox("Not logged in");
+                mb.Show();
+                return;
             }
 
 
@@ -201,6 +240,14 @@ namespace ALSProject
             catch (InvalidCredentialsException)
             {
                 
+            }catch(System.Net.Sockets.SocketException e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Not connected to internet");
+                mb.Show();
+            }catch(Exception e)
+            {
+                ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                mb.Show();
             }
 
         }
@@ -227,6 +274,10 @@ namespace ALSProject
                 catch (BadServerResponseException e)
                 {
                     //be really sad
+                }catch(Exception e)
+                {
+                    ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                    mb.Show();
                 }
 
             }
@@ -264,11 +315,18 @@ namespace ALSProject
         #region Private Methods
         private void StartSMTP()
         {
-            sendClient = new SmtpClient(smtpHost);
-            sendClient.Port = 587;
+            try {
+                sendClient = new SmtpClient(smtpHost);
+                sendClient.Port = 587;
 
-            sendClient.Credentials = new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
-            sendClient.EnableSsl = true;
+                sendClient.Credentials = new System.Net.NetworkCredential("teameyepad", "highEyeGuy");
+                sendClient.EnableSsl = true;
+            }
+            catch
+            {
+                ALSMessageBox mb = new ALSMessageBox("Unknown error occurred");
+                mb.Show();
+            }
         }
         #endregion
         

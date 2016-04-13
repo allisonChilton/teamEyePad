@@ -18,8 +18,8 @@ namespace ALSProject
         [STAThread]
         static void Main(String[] args)
         {
-            UnsafeFail(); //for testing
-            //SafeFail(); //for release
+            //UnsafeFail(); //for testing
+            SafeFail(); //for release
         }
 
         static void SafeFail()
